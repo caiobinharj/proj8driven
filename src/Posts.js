@@ -1,77 +1,47 @@
-export default function Body(){
+import React from "react";
+import Post from "./Post";
+
+export default function Posts() {
+    const [posts, setPosts] = React.useState([
+        { img1: "meowed", img2: "gato-telefone", img3: "respondeai", curtidas: 12031, gostado: false, salvo: false, id: 0 },
+        { img1: "barked", img2: "dog", img3: "adorable_animals", curtidas: 43213, gostado: false, salvo: false, id: 1 },
+        { img1: "dog", img2: "adorable_animals", img3: "adorable_animals", curtidas: 123124, gostado: false, salvo: false, id: 2 },
+        { img1: "adorable_animals", img2: "meowed", img3: "meowed", curtidas: 12312432, gostado: false, salvo: false, id: 3 },
+        { img1: "barked", img2: "barked", img3: "adorable_animals", curtidas: 99323, gostado: false, salvo: false, id: 4 }
+    ]);
+
+    function handleCurtir(id, isToggle = false) {
+        setPosts(posts.map(post => {
+            if (post.id === id) {
+                if (!isToggle && post.gostado) return post;
+
+                const novoEstado = isToggle ? !post.gostado : true;
+                return {
+                    ...post,
+                    curtidas: novoEstado ? post.curtidas + 1 : post.curtidas - 1,
+                    gostado: novoEstado
+                };
+            }
+            return post;
+        }));
+    }
+
+    function toggleSalvo(id) {
+        setPosts(posts.map(post =>
+            post.id === id ? { ...post, salvo: !post.salvo } : post
+        ));
+    }
+
     return (
         <div className="posts">
-            <div className="post">
-                <div className="topo">
-                    <div className="usuario">
-                        <img src="../assets/img/meowed.svg" alt="meowed"/>
-                        meowed
-                    </div>
-                    <div className="acoes">
-                        <ion-icon name="ellipsis-horizontal"></ion-icon>
-                    </div>
-                </div>
-
-                <div className="conteudo">
-                    <img src="../assets/img/gato-telefone.svg" alt="gato-telefone"/>
-                </div>
-
-                <div className="fundo">
-                    <div className="acoes">
-                        <div>
-                            <ion-icon name="heart-outline"></ion-icon>
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                            <ion-icon name="paper-plane-outline"></ion-icon>
-                        </div>
-                        <div>
-                            <ion-icon name="bookmark-outline"></ion-icon>
-                        </div>
-                    </div>
-
-                    <div className="curtidas">
-                        <img src="../assets/img/respondeai.svg" alt="respondeai"/>
-                        <div className="texto">
-                            Curtido por <strong>respondeai</strong> e <strong>outras 101.523 pessoas</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="post">
-                <div className="topo">
-                    <div className="usuario">
-                        <img src="../assets/img/barked.svg" alt="barked"/>
-                        barked
-                    </div>
-                    <div className="acoes">
-                        <ion-icon name="ellipsis-horizontal"></ion-icon>
-                    </div>
-                </div>
-
-                <div className="conteudo">
-                    <img src="../assets/img/dog.svg" alt="dog"/>
-                </div>
-
-                <div className="fundo">
-                    <div className="acoes">
-                        <div>
-                            <ion-icon name="heart-outline"></ion-icon>
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                            <ion-icon name="paper-plane-outline"></ion-icon>
-                        </div>
-                        <div>
-                            <ion-icon name="bookmark-outline"></ion-icon>
-                        </div>
-                    </div>
-
-                    <div className="curtidas">
-                        <img src="../assets/img/adorable_animals.svg" alt="adorable_animals"/>
-                        <div className="texto">
-                            Curtido por <strong>adorable_animals</strong> e <strong>outras 99.159 pessoas</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {posts.map((post) => (
+                <Post
+                    key={post.id}
+                    post={post}
+                    onCurtir={handleCurtir}
+                    onToggleSalvo={toggleSalvo}
+                />
+            ))}
         </div>
-    )
+    );
 }
