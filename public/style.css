@@ -74,6 +74,16 @@ body {
   display: none;
 }
 
+.nome{
+  font-weight: bold;
+}
+
+.separa{
+  display:flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
 .corpo {
   display: flex;
   justify-content: space-between;
@@ -116,7 +126,7 @@ body {
   align-items: center;
   height: 66px;
   width: 66px;
-  background-image: url('../assets/img/story-circle.svg');
+  background-image: url('story-circle.svg');
   
 }
 
@@ -241,8 +251,9 @@ body {
 
 .sidebar .sugestoes .titulo {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
   padding: 20px 0 14px;
 }
 
@@ -279,6 +290,10 @@ body {
 .sidebar .sugestoes .sugestao .usuario .texto :last-child {
   color: #8E8E8E;
   font-weight: 400;
+}
+
+.sugestao{
+  margin-top: 16px;
 }
 
 .links, .copyright {
